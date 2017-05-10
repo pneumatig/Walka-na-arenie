@@ -65,7 +65,7 @@ var npc = function(name, hp, armor, stamina){
     }
 
     this.damage = function() {
-        return Math.floor(Math.random() * 45);
+        return Math.floor(Math.random() * 33);
     }
 };
 
@@ -91,8 +91,10 @@ var playerAttack = function() {
 var npcAttack = function() {
     if(npc1.hit() == true) {
         var ileDmg = npc1.damage();
-        if(playerDefend() == true){
-            ileDmg = 0;
+        if(playerDefend() == true) {
+            ileDmg -= 15;
+            log('Zablokowales ' + ileDmg); // to nie dziala
+            player.hp -= ileDmg;
         }   else    {
             player.hp -= ileDmg;
         }
@@ -107,12 +109,19 @@ var npcAttack = function() {
 var playerDefend = function(){
     npcAttack();
     if(npc1.hit() == true) {
-        npc1.damage = 0;
+        //npc1.damage = 0; // Usunac to czy nie?
         log('Zablokowales Atak');
     }  
 }
 
-var exhaustPlayer = function(){
+var npcDefend = function(){
+    playerAttack();
+    if(player.hit() == true) { // Nie skonczylem tutaj tego robic
+
+    }
+}
+
+/*var exhaustPlayer = function(){
     if(hit == true) {
         player.stamina -= -10; 
     }
@@ -122,7 +131,7 @@ var exhaustNpc = function() {
     if(hitNPC == true) {
         npc.stamina -= -10; // Zabiera stamine obydwu npc ?
     }
-}
+}*/
 
 var fight = true;
 
