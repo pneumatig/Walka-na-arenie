@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    log('Witaj');
-    $('#button-attack').click(function(){
+    log('Yo Bitch!');
+    $('#attack').click(function(){
         playerAttack();
         npcAttack();
         licznik += 1;  
@@ -56,10 +56,8 @@ var npc = function(name, hp, armor, stamina){
     }
 };
 
-var npc1 = new npc('John', 100, 0, 80);
+var npc1 = new npc('Gladiator', 100, 0, 80);
 var npc2 = new npc('Gerald', 100, 2, 100);
-
-//var fight = true;
 
 var playerAttack = function() {
     if(player.hit() == true) {
@@ -104,8 +102,16 @@ var exhaustNpc = function() {
     }
 }
 
-var duel = function(){
-    while(fight) {
+var fight = true;
 
-    }
-}
+/*var duel = function(){
+    while(fight) {
+        playerAttack();
+        if(player.hp <= 0) {
+            fight = false;
+        }
+    }   npcAttack();
+        if(npc1.hp <= 0) {
+            fight = false;
+        }   
+}*/

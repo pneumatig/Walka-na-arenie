@@ -14,12 +14,25 @@
     width: 100px;
     height: 50px;
     color: red;
-    margin: auto;
+    margin: auto;   
 }
 
 #attack {
     display: block;
-    margin-left: 1000px;
+    margin-left: 500px;
     margin-top: -2%;
     height: auto;
+}
+
+#defend {
+    display: block;
+    margin-left: 1600px;
+    margin-top: -12%;
+    height: auto;
+}
+
+#health {
+    margin-left: 1000px;
+    height: 25px;
+    width: 350px;
 }
