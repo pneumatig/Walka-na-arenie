@@ -9,3 +9,9 @@
     box-shadow: 3px 3px 10px #bbb;
     color: green;
 }
+
+#player-hp {
+    width: 100px;
+    height: 50px;
+    color: red;
+}

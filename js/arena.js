@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    log('Witaj');
+    log('Yo Bitch');
     $('#button-attack').click(function(){
         playerAttack();
         npcAttack();
@@ -17,7 +17,8 @@ var clearLog = function()   {
 }
 
 var log = function(log) {
-    $('#okienko').append('<p>' + log + '</p>').fadeIn('slow', 1000);
+    $('#okienko').append('<p>' + log + '</p>')
+    $('p').fadeOut('slow', 1000); // cos tu nie trybi
 }
 
 var player = new Object(); {
