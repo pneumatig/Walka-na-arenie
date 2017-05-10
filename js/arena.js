@@ -1,14 +1,27 @@
+// @ts-nocheck
+
+
 $(document).ready(function () {
-    log('Yo Bitch!');
-    $('#attack').click(function(){
+    log('Fight is ' + fight);
+    // @ts-ignore
+    $('#attack').click(function () {
+        //duel();
         playerAttack();
         npcAttack();
         licznik += 1;  
-        if(licznik == 8)    {
+        if(licznik == 5)    {
         clearLog();
         return licznik = 0;
         };
     });
+    $('#defend').click(function (){
+        playerDefend();
+        licznik += 1;  
+        if(licznik == 5)    {
+        clearLog();
+        return licznik = 0;
+        };        
+    })
 });
 
 var licznik = 0;
@@ -48,11 +61,11 @@ var npc = function(name, hp, armor, stamina){
     this.stamina = stamina;
     
     this.hit = function() {
-        return Math.floor(Math.random() * 3) == 2;
+        return Math.floor(Math.random() * 2) == 1;
     }
 
     this.damage = function() {
-        return Math.floor(Math.random() * 22);
+        return Math.floor(Math.random() * 45);
     }
 };
 
@@ -62,12 +75,12 @@ var npc2 = new npc('Gerald', 100, 2, 100);
 var playerAttack = function() {
     if(player.hit() == true) {
         var ileDmg = player.damage();
-        npc.hp -= ileDmg; 
-        log('Zadales ' + ileDmg + ' ' + 'demejdza')
-    //return log(ileDmg); // Pokazuje ile dmg zadal Player
-
+        npc1.hp -= ileDmg; 
+        log('Zadales ' + ileDmg + ' ' + 'dmg')
+        log('Przeciwnikowi zostalo ' + npc1.hp + ' hp');
+        return npc1.hp;
 }   else    {
-        return log('miss');
+        return log('Player miss');
     }
 }
 
@@ -78,16 +91,25 @@ var playerAttack = function() {
 var npcAttack = function() {
     if(npc1.hit() == true) {
         var ileDmg = npc1.damage();
-        player.hp -= ileDmg;
-        log(npc1.name + ' zadal tobie ' + ileDmg + ' demejdza');
-    return log(ileDmg); // Pokazuje ile dmg zadal Npc
+        if(playerDefend() == true){
+            ileDmg = 0;
+        }   else    {
+            player.hp -= ileDmg;
+        }
+        log(npc1.name + ' zadal tobie ' + ileDmg + ' dmg');
+        log('Zostalo tobie ' + player.hp + ' hp');
+        return player.hp;
     } else {
         return log(npc1.name + ' ' + 'miss');
     }
 };
 
 var playerDefend = function(){
-
+    npcAttack();
+    if(npc1.hit() == true) {
+        npc1.damage = 0;
+        log('Zablokowales Atak');
+    }  
 }
 
 var exhaustPlayer = function(){
@@ -105,13 +127,15 @@ var exhaustNpc = function() {
 var fight = true;
 
 /*var duel = function(){
-    while(fight) {
+    do{
         playerAttack();
-        if(player.hp <= 0) {
+        npcAttack();
+    }   while(fight == true)    {
+        if(player.hp <= 0)   {
             fight = false;
-        }
-    }   npcAttack();
-        if(npc1.hp <= 0) {
+        } else if(npc1.hp <= 0) {
             fight = false;
-        }   
-}*/
+        }    
+    }
+};
+*/
