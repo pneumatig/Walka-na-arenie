@@ -1,10 +1,10 @@
 $(document).ready(function () {
-    log('Yo Bitch');
+    log('Witaj');
     $('#button-attack').click(function(){
         playerAttack();
         npcAttack();
         licznik += 1;  
-        if(licznik == 5)    {
+        if(licznik == 8)    {
         clearLog();
         return licznik = 0;
         };
@@ -17,8 +17,7 @@ var clearLog = function()   {
 }
 
 var log = function(log) {
-    $('#okienko').append('<p>' + log + '</p>')
-    $('p').fadeOut('slow', 1000); // cos tu nie trybi
+    $('#okienko').append('<p>' + log + '</p>').fadeIn('slow', 1000);
 }
 
 var player = new Object(); {
