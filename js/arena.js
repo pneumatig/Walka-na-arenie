@@ -14,8 +14,8 @@ $(document).ready(function () {
         var npcAction = npc.action();
 
         if (npcAction == 'block') {  // Sprawdza czy npcAction() zwrocil 'blok'
-            npcBlock = Math.floor(Math.random() * 2);
-            log(npc.name + ' blok');
+            npcBlock = Math.floor(Math.random() * 2); //ile dmg blokuje
+            log(npc.name + ' blok');    
         }
 
         if (user.hit() == true) {                         // Sprawdza czy player trafil
@@ -23,7 +23,7 @@ $(document).ready(function () {
             var dmgToNpc = (user.damage() * npcBlock);   // To jest dmg usera
             npc.hp = npc.hp - dmgToNpc;                  // Tutaj odejmuje dmg playera od hp npc'a
             log('Trafiles ' + npc.name + 'a' + ' za ' + dmgToNpc + ' hp');
-            if (npcAction == 'block') {
+            if (npcAction == 'block') { //Jezeli npc zablokowal
                 log(npc.name + ' zablokowal ' + npcBlock);
             }
         } else {
@@ -32,11 +32,11 @@ $(document).ready(function () {
         }
 
 
-        if (npcAction == 'attack') {
+        if (npcAction == 'attack') {    //Jezeli npc zaatakowal
 
-            if (npc.hit() == true) {
-                var dmgToUser = npc.damage();
-                user.hp -= dmgToUser;
+            if (npc.hit() == true) {    //Jezeli npc trafil
+                var dmgToUser = npc.damage();   //zmienna ile dmg npc zadal
+                user.hp -= dmgToUser;           //odejmuje hp playerowi
                 log(npc.name + ' trafil cie ' + ' za ' + dmgToUser);
 
             } else {
@@ -61,9 +61,16 @@ $(document).ready(function () {
     // Jezeli Player nacisnie Defend
 
     $('#defend').click(function () {
+        var npcAction = npc.action();
 
+        if (npcAction == 'attack') {    //Jezeli npc zaatakowal
 
-
+            if (npc.hit() == true) {    //Jezeli npc trafil
+                var dmgToUser = npc.damage();   //zmienna ile dmg npc zadal
+                user.hp -= dmgToUser;           //odejmuje hp playerowi
+                log(npc.name + ' trafil cie ' + ' za ' + dmgToUser);
+            }
+        }
         // Liczy ile razy bylo klikniete i pozniej zwraca 0   
         licznik += 1;
         if (licznik == 6) {
@@ -125,7 +132,7 @@ var npc = function (name, hp, armor, stamina) {   //Obiekt NPC
 // TWORZENIE OBIEKTOW ORAZ VAR//
 
 var licznik = 0;
-var npc1 = new npc('Gladiator', 100, 0, 80); // Nowy obiekt npc1
+var npc1 = new npc('Gladiator', 100, 0, 100); // Nowy obiekt npc1
 var npc2 = new npc('Gerald', 100, 2, 100);  // Nowy obiekt npc2
 var user = new player('Ajzak Niuton');
 var npc = npc1;
