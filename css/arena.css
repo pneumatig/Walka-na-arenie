@@ -2,35 +2,38 @@
     background-color: black;
     border-width: 4px;
     border-color: #BBB;
-    border-style: solid;
+    border-style: ridge;
     height: 600px;
-    width: 900px;
-    margin: 0px auto;
     box-shadow: 3px 3px 10px #bbb;
     color: green;
+	width: 75%;
+	float:right;
+	padding: 30px;
+	box-sizing: border-box;
 }
 
 #player-hp {
-    width: 100px;
+    width: 20%;
     height: 50px;
     color: red;
-    margin: auto;   
+    float: left;
+	font-size:1.2em;
+	font-weight: 700;
 }
 
 #attack {
-    display: block;
-    margin-left: 500px;
-    margin-top: -2%;
-    height: auto;
+	margin-left: 25%;
+	float: left;
 }
 
 #defend {
-    display: block;
-    margin-left: 1600px;
-    margin-top: -12%;
-    height: auto;
+	float: right;
 }
-
+#attack, #defend {
+	margin-top: 20px;
+	width: 100px;
+	cursor:pointer;
+}
 #health {
     margin-left: 1000px;
     height: 25px;
