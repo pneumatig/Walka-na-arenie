@@ -1,150 +1,109 @@
 // @ts-nocheck
-
-
 $(document).ready(function () {
-    log('Fight is ' + fight);
     // @ts-ignore
-    $('#attack').click(function () {
-        //duel();
-        playerAttack();
-        npcAttack();
+    // Welcome Msg
+    
+    log('Witaj na arenie Dragon Slayer!');
+    log('Dzisiaj bedziesz napierdalal sie z ' + npc1.name + 'em' + ' oraz ' + npc2.name + 'em');
+    log('Powodzenia ' + user.name + '!');
+
+    // Jezeli Player nacisnie Atak
+
+    $('#attack').click(function () { 
+        
+        if(user.hit() == true) {            // Sprawdza czy player trafil
+            var dmgToNpc = user.damage();   // To jest dmg usera
+            npc.hp -= dmgToNpc;             // Tutaj odejmuje dmg playera od hp npc'a
+            log('Trafiles ' + npc.name + 'a' + ' za ' + dmgToNpc + ' hp');
+            //return log(npc.name + ' ' + npc.hp + 'hp left'); // Zwraca hp npc'a
+        }   else    {
+            log(user.name + ' miss');   //Wpisuje w konsoli Miss 
+        }   
+
+        if(npc.hit() == true) {
+            var dmgToUser = npc.damage();
+            user.hp -= dmgToUser;
+            log(npc.name + ' trafil cie ' + ' za ' + dmgToUser);
+        }   else    {
+            log(npc.name + ' miss');
+        }
+    log(user.name + ' ' + user.hp + 'hp left');    
+    log(npc.name + ' ' + npc.hp + 'hp left');   
+    // Liczy ile razy bylo klikniete i pozniej zwraca 0
         licznik += 1;  
-        if(licznik == 5)    {
+        if(licznik == 4)    {
         clearLog();
         return licznik = 0;
         };
     });
+
+    // Jezeli Player nacisnie Defend
+   
     $('#defend').click(function (){
-        playerDefend();
+
+        
+        
+     // Liczy ile razy bylo klikniete i pozniej zwraca 0   
         licznik += 1;  
-        if(licznik == 5)    {
+        if(licznik == 6)    
+        {
         clearLog();
         return licznik = 0;
         };        
     })
 });
 
-var licznik = 0;
-var clearLog = function()   {
+var clearLog = function()   { // Czysci napisy w okienku
         $('#okienko').html('');
 }
 
-var log = function(log) {
-    $('#okienko').append('<p>' + log + '</p>').fadeIn('slow', 1000);
+var log = function(log) { // Wyswietla napis w okienku
+    $('#okienko').append('<p>' + log + '</p>') 
 }
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
 
-var player = new Object(); {
-    player.name = 'Bruce Willis',
-    player.hp = 100;
-    player.armor = 2;
-    player.stamina = 100;
+var player = function(name, hp, armor, stamina) {   //Obiekt Player
     
-    player.hit = function() {
-        var ifHit = Math.floor(Math.random() * 2) == 1;
-        if(ifHit == true) {
-            player.stamina -= 10;
-        }   else    {
-            player.stamina -= 5;
-        } 
-        return ifHit;
-    };
+    this.name = name;
+    this.hp = 100;
+    this.armor = 3;
+    this.stamina = 100;
 
-    player.damage = function() {
-        return Math.floor(Math.random() * 33);
+    this.hit = function() { // Odpowiada czy player trafil
+        return Math.floor(Math.random() * 2) == 1; //Zwraca 0 lub 1
+    }
+    this.damage = function() {  // Odpowiada za DMG
+        return Math.floor(Math.random() * 15);  //Zwraca od 0 do 15
     }
 };
 
-var npc = function(name, hp, armor, stamina){
+var npc = function(name, hp, armor, stamina){   //Obiekt NPC
     this.name = name;
     this.hp = hp;
     this.armor = armor;
     this.stamina = stamina;
     
-    this.hit = function() {
-        return Math.floor(Math.random() * 2) == 1;
-    }
+    this.hit = function() { // Odpowiada czy npc trafil
+        return Math.floor(Math.random() * 2) == 1; // Zwraca 0 lub 1
+    },
 
-    this.damage = function() {
-        return Math.floor(Math.random() * 33);
-    }
-};
-
-var npc1 = new npc('Gladiator', 100, 0, 80);
-var npc2 = new npc('Gerald', 100, 2, 100);
-
-var playerAttack = function() {
-    if(player.hit() == true) {
-        var ileDmg = player.damage();
-        npc1.hp -= ileDmg; 
-        log('Zadales ' + ileDmg + ' ' + 'dmg')
-        log('Przeciwnikowi zostalo ' + npc1.hp + ' hp');
-        return npc1.hp;
-}   else    {
-        return log('Player miss');
-    }
-}
-
-//var npcPick = function() {
-
-//}
-
-var npcAttack = function() {
-    if(npc1.hit() == true) {
-        var ileDmg = npc1.damage();
-        if(playerDefend() == true) {
-            ileDmg -= 15;
-            log('Zablokowales ' + ileDmg); // to nie dziala
-            player.hp -= ileDmg;
-        }   else    {
-            player.hp -= ileDmg;
-        }
-        log(npc1.name + ' zadal tobie ' + ileDmg + ' dmg');
-        log('Zostalo tobie ' + player.hp + ' hp');
-        return player.hp;
-    } else {
-        return log(npc1.name + ' ' + 'miss');
+    this.damage = function() {  //Odpowiada za dmg npc
+        return Math.floor(Math.random() * 15);  //Zwraca dmg od 0 do 15
     }
 };
 
-var playerDefend = function(){
-    npcAttack();
-    if(npc1.hit() == true) {
-        //npc1.damage = 0; // Usunac to czy nie?
-        log('Zablokowales Atak');
-    }  
-}
 
-var npcDefend = function(){
-    playerAttack();
-    if(player.hit() == true) { // Nie skonczylem tutaj tego robic
 
-    }
-}
+/////////////////////////////////////////////////////////////////////
+                    // TWORZENIE OBIEKTOW ORAZ VAR//
 
-/*var exhaustPlayer = function(){
-    if(hit == true) {
-        player.stamina -= -10; 
-    }
-}
+var licznik = 0;
+var npc1 = new npc('Gladiator', 100, 0, 80); // Nowy obiekt npc1
+var npc2 = new npc('Gerald', 100, 2, 100);  // Nowy obiekt npc2
+var user = new player('Ajzak Niuton');
+var npc = npc1;
 
-var exhaustNpc = function() { 
-    if(hitNPC == true) {
-        npc.stamina -= -10; // Zabiera stamine obydwu npc ?
-    }
-}*/
+/////////////////////////////////////////////////////////////////////
 
-var fight = true;
 
-/*var duel = function(){
-    do{
-        playerAttack();
-        npcAttack();
-    }   while(fight == true)    {
-        if(player.hp <= 0)   {
-            fight = false;
-        } else if(npc1.hp <= 0) {
-            fight = false;
-        }    
-    }
-};
-*/
