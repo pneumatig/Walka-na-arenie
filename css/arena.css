@@ -27,12 +27,17 @@
 }
 
 #defend {
+    display: block;
+    margin-left: 100px;
+    margin-top: -32%;
+    height: auto;
 	float: right;
 }
 #attack, #defend {
 	margin-top: 20px;
 	width: 100px;
 	cursor:pointer;
+
 }
 #health {
     margin-left: 1000px;
